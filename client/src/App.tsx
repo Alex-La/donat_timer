@@ -20,7 +20,7 @@ const App: React.FC = () => {
           justifyContent: "center",
         }}
       >
-        <h1 style={{ color: "orange" }}>
+        <h1 style={{ color: "orange", fontSize: 100 }}>
           {hours}:{minutes}:{seconds}
         </h1>
       </div>
