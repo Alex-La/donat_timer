@@ -1,50 +1,46 @@
 import "dotenv/config";
 
-import { ApolloServer, gql } from "apollo-server-express";
-import express from "express";
-import cors from "cors";
-import expressStaticGzip from "express-static-gzip";
-import path from "path";
+import { ApolloServerPluginDrainHttpServer } from "apollo-server-core";
+import { createServer } from "http";
+import { WebSocketServer } from "ws";
+import { useServer } from "graphql-ws/lib/use/ws";
+import { ApolloServer } from "apollo-server-express";
+import schema from "./schema";
+import ExpressConfig from "./utils/expressConfig";
 
 const port = process.env.PORT;
+const app = ExpressConfig.app;
 
-async function startServer() {
-  try {
-    const server = new ApolloServer({
-      typeDefs: gql`
-        type Query {
-          hello: String
-        }
-      `,
-    });
-    await server.start();
+const httpServer = createServer(app);
 
-    const app = express();
-    app.use(cors());
+const wsServer = new WebSocketServer({
+  server: httpServer,
+  path: "/graphql",
+});
 
-    if (process.env.NODE_ENV === "production") {
-      app.use(
-        "/",
-        expressStaticGzip(path.join("client", "build"), {
-          enableBrotli: true,
-          orderPreference: ["br", "gz"],
-        })
-      );
-      app.get("*", (_, res) => {
-        res.sendFile(path.resolve("client", "build", "index.html"));
-      });
-    }
+const serverCleanup = useServer({ schema }, wsServer);
 
-    server.applyMiddleware({ app });
+const server = new ApolloServer({
+  schema,
+  plugins: [
+    ApolloServerPluginDrainHttpServer({ httpServer }),
+    {
+      async serverWillStart() {
+        return {
+          async drainServer() {
+            await serverCleanup.dispose();
+          },
+        };
+      },
+    },
+  ],
+});
 
-    await new Promise<void>((resolve) => app.listen({ port }, resolve));
+server.start().then(() => {
+  server.applyMiddleware({ app });
+  httpServer.listen(port, () => {
     console.log(
-      `🚀 Server ready at http://localhost:${port}${server.graphqlPath}`
+      `🚀 Server is now running on http://localhost:${port}${server.graphqlPath}`
     );
-  } catch (e) {
-    console.error(e);
-    process.exit(1);
-  }
-}
-
-startServer();
+  });
+});
