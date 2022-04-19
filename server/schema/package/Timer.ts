@@ -3,32 +3,32 @@ import pubsub from "../../utils/pubsub";
 
 const typeDefs = gql`
   extend type Query {
-    initialTimerSettings: TimerSettings!
+    initialTimer: Timer!
   }
 
   extend type Mutation {
-    updateTimerSettings: String
+    updateTimer: String
   }
   extend type Subscription {
-    onUpdateTimerSettings: TimerSettings
+    onUpdateTimer: Timer
   }
 
-  type TimerSettings {
+  type Timer {
     color: String
   }
 `;
 
 const resolvers = {
   Query: {
-    initialTimerSettings: () => {
+    initialTimer: () => {
       return {
         color: "red",
       };
     },
   },
   Mutation: {
-    updateTimerSettings: () => {
-      pubsub.publish("SETTINGS_CHANGED", {
+    updateTimer: () => {
+      pubsub.publish("TIMER_CHANGED", {
         onUpdateTimerSettings: {
           color: "red",
         },
@@ -37,9 +37,9 @@ const resolvers = {
     },
   },
   Subscription: {
-    onUpdateTimerSettings: {
+    onUpdateTimer: {
       // More on pubsub below
-      subscribe: () => pubsub.asyncIterator(["SETTINGS_CHANGED"]),
+      subscribe: () => pubsub.asyncIterator(["TIMER_CHANGED"]),
     },
   },
 };

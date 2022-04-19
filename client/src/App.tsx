@@ -1,4 +1,3 @@
-import "./App.css";
 import { useTimer } from "react-timer-hook";
 
 const App: React.FC = () => {
