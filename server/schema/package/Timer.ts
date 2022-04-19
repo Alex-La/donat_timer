@@ -2,13 +2,10 @@ import { gql } from "apollo-server-core";
 import pubsub from "../../utils/pubsub";
 
 const typeDefs = gql`
-  extend type Query {
-    initialTimer: Timer!
-  }
-
   extend type Mutation {
     updateTimer: String
   }
+
   extend type Subscription {
     onUpdateTimer: Timer
   }
@@ -19,13 +16,6 @@ const typeDefs = gql`
 `;
 
 const resolvers = {
-  Query: {
-    initialTimer: () => {
-      return {
-        color: "red",
-      };
-    },
-  },
   Mutation: {
     updateTimer: () => {
       pubsub.publish("TIMER_CHANGED", {
