@@ -19,6 +19,10 @@ app.get("/settings", (_, res) => {
   res.render("settings", { title: "Settings" });
 });
 
+app.get("/theme", (_, res) => {
+  res.render("theme", { title: "Theme" });
+});
+
 const server = createServer(app);
 const io = new SocketServer(server);
 

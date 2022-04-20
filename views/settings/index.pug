@@ -2,7 +2,9 @@ doctype html
 html 
     head
         title= title
-        style: include style.css
+        style
+            include ../index.css 
+            include style.css
         script(src="/socket.io/socket.io.js") 
     script: include index.js
     body
