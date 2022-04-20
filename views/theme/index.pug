@@ -6,7 +6,7 @@ html
     body
         div(style="padding: 20px;")
             h5="Headlines:"
-            div(class="paper shadow-z12")
+            div(class="paper")
                 h1="Almost before…"
                 h2="Almost before…"
                 h3="Almost before…"
@@ -14,7 +14,7 @@ html
                 h5="Almost before…"
                 h6="Almost before…"
             h5="Texts:"
-            div(class="paper shadow-z12")
+            div(class="paper")
                 p(class="subtitle1")="Almost before we knew it, we had left the ground."
                 p(class="subtitle2")="Almost before we knew it, we had left the ground."
                 p(class="body1")="Almost before we knew it, we had left the ground."
@@ -22,7 +22,7 @@ html
                 p(class="caption")="Almost before we knew it, we had left the ground."
                 p(class="overline")="Almost before we knew it, we had left the ground."
             h5="Shadows:"
-            div(class="paper shadow-z12")
+            div(class="paper")
                 div(class="flex")
                     div(class="shadow-z1" style="padding: 40px; margin: 20px; border-radius: 10px; background-color: var(--grey-700);")
                     div(class="shadow-z8" style="padding: 40px; margin: 20px; border-radius: 10px; background-color: var(--grey-700);")
@@ -37,8 +37,27 @@ html
                     div(class="shadow-warning" style="padding: 40px; margin: 20px; border-radius: 10px; background-color: var(--warning-main);")
                     div(class="shadow-error" style="padding: 40px; margin: 20px; border-radius: 10px; background-color: var(--error-main);")
             h5="Buttons:"
-            div(class="paper shadow-z12")
-                button="Default"
+            div(class="paper")
+                div(class='flex')
+                    button(style="margin-right: 10px;")="Default"
+                    button(class="btn-primary" style="margin-right: 10px;")="Primary"
+                    button(class="btn-info" style="margin-right: 10px;")="Info"
+                    button(class="btn-success" style="margin-right: 10px;")="Success"
+                    button(class="btn-warning" style="margin-right: 10px;")="Warning"
+                    button(class="btn-error" style="margin-right: 10px;")="Error"
+                    button(disabled class="btn-error" style="margin-right: 10px;")="Disabled"
+                div(class='flex' style="margin-top: 20px;")
+                    button(class="outline" style="margin-right: 10px;")="Default"
+                    button(class="btn-primary outline" style="margin-right: 10px;")="Primary"
+                    button(class="btn-info outline" style="margin-right: 10px;")="Info"
+                    button(class="btn-success outline" style="margin-right: 10px;")="Success"
+                    button(class="btn-warning outline" style="margin-right: 10px;")="Warning"
+                    button(class="btn-error outline" style="margin-right: 10px;")="Error"
+                    button(disabled class="btn-error outline" style="margin-right: 10px;")="Disabled"
+                div(class='flex' style="margin-top: 20px;")
+                    button(class="outline large" style="margin-right: 10px;")="Default"
+                    button(class="btn-primary outline medium" style="margin-right: 10px;")="Primary"
+                    button(class="btn-info outline small" style="margin-right: 10px;")="Info"
 
 
         
