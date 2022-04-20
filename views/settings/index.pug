@@ -1,0 +1,25 @@
+doctype html
+html 
+    head
+        title= title
+        style: include style.css
+        script(src="/socket.io/socket.io.js") 
+    script: include index.js
+    body
+        div(class="wrap")
+            div(class="card")
+                p= "Time in seconds:"
+                input(type="text", id="time")
+                button(id="start")="Start!"
+            div(class="card")
+                p= "Increase on seconds:"
+                input(type="text", id="increase")
+                button(id="increase_btn")="Increase!"
+            div(class="card")
+                p= "Decrease on seconds:"
+                input(type="text", id="decrease")
+                button(id="decrease_btn")="Decrease!"
+
+
+
+        

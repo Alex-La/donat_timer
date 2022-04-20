@@ -1,0 +1,25 @@
+{
+  "name": "bright_timer",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Alex-La/bright_timer.git",
+  "author": "Alex Larionov <lars6162@gmail.com>",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": "16.14.0"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "pug": "^3.0.2",
+    "socket.io": "^4.4.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}

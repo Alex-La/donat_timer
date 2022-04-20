@@ -1,0 +1,33 @@
+doctype html
+html 
+    head
+        title= title
+        style: include style.css
+        script(src="/socket.io/socket.io.js") 
+        script: include index.js
+    body
+        div(class="wrap")
+            
+            ul(class="countdown")
+                li 
+                    span(id="days", class="days")= "0"
+                    p(class="days_ref")= "days"
+                li(class="seperator")= ":"
+                li 
+                    span(id="hours", class="hours")="00"
+                    p(class="hours_ref")="hours"
+                li(class="seperator")= ":"
+                li 
+                    span(id="minutes", class="minutes")="00"
+                    p(class="minutes_ref")="minutes"
+                li(class="seperator")= ":"
+                li 
+                    span(id="seconds", class="seconds")="00"
+                    p(class="seconds_ref")="seconds"
+
+
+
+
+                  
+
+        
