@@ -66,6 +66,10 @@
   --action-disabled-bg: rgba(145, 158, 171, 0.24);
 }
 
+:focus {
+  outline: none;
+}
+
 body {
   margin: 0;
   background-color: var(--grey-900);
@@ -358,6 +362,33 @@ button.medium {
 
 button.small {
   padding: 4px 10px;
+}
+
+input {
+  font-family: "Montserrat", sans-serif;
+  color: var(--text-color);
+  background-color: transparent;
+  border: 1px solid var(--action-disabled);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+input::placeholder {
+  color: var(--action-disabled);
+}
+
+input:hover {
+  border-color: var(--text-color);
+}
+
+input:focus {
+  border-color: var(--primary-main);
+}
+
+input:disabled {
+  border: transparent;
+  background-color: var(--action-disabled-bg);
+  cursor: not-allowed;
 }
 
 .flex {

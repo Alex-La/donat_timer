@@ -9,18 +9,18 @@ html
     script: include index.js
     body
         div(class="wrap")
-            div(class="card")
+            div(class="paper")
                 p= "Time in seconds:"
                 input(type="text", id="time")
-                button(id="start")="Start!"
-            div(class="card")
+                button(id="start" class="btn-primary")="Start!"
+            div(class="paper")
                 p= "Increase on seconds:"
                 input(type="text", id="increase")
-                button(id="increase_btn")="Increase!"
-            div(class="card")
+                button(id="increase_btn" class="btn-primary")="Increase!"
+            div(class="paper")
                 p= "Decrease on seconds:"
                 input(type="text", id="decrease")
-                button(id="decrease_btn")="Decrease!"
+                button(id="decrease_btn" class="btn-primary")="Decrease!"
 
 
 

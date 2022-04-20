@@ -3,6 +3,7 @@ import express from "express";
 import { createServer } from "http";
 import path from "path";
 import { Server as SocketServer } from "socket.io";
+import { initSockets } from "./socket";
 
 const port = process.env.PORT;
 
@@ -25,25 +26,6 @@ app.get("/theme", (_, res) => {
 
 const server = createServer(app);
 const io = new SocketServer(server);
-
-io.on("connection", (socket) => {
-  socket.join("room");
-
-  socket.on("start", (time) => {
-    io.to("room").emit("start", time * 1000);
-  });
-
-  socket.on("increase", (time) => {
-    io.to("room").emit("increase", time * 1000);
-  });
-
-  socket.on("decrease", (time) => {
-    io.to("room").emit("decrease", time * 1000);
-  });
-
-  socket.on("disconnect", () => {
-    console.log("User disconnected!");
-  });
-});
+initSockets(io);
 
 server.listen(port, () => console.log(`Server ready at port: ${port}`));
