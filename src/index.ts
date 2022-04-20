@@ -7,7 +7,8 @@ import { initSockets } from "./socket";
 import session from "express-session";
 import flash from "connect-flash";
 import passport from "passport";
-import { Strategy as LocalStrategy } from "passport-local";
+import localStrategy from "./passport/localStrategy";
+import authRouter from "./routes/auth";
 
 const PORT = process.env.PORT!!;
 const SESSION_SECRET = process.env.SESSION_SECRET!!;
@@ -25,35 +26,9 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.use(
-  new LocalStrategy(
-    {
-      usernameField: "login",
-      passwordField: "password",
-    },
-    (user, password, done) => {
-      if (user !== "test_user")
-        return done(null, false, {
-          message: "User not found",
-        });
-      else if (password !== "test_password")
-        return done(null, false, {
-          message: "Wrong password",
-        });
+passport.use(localStrategy);
 
-      return done(null, { id: 1, name: "Test", age: 21 });
-    }
-  )
-);
-
-app.post(
-  "/login",
-  passport.authenticate("local", {
-    successRedirect: "/home",
-    failureRedirect: "/login",
-    failureFlash: true,
-  })
-);
+app.use("/auth", authRouter(passport));
 
 function checkAuth() {
   return app.use((req, res, next) => {
@@ -68,10 +43,6 @@ app.get("/home", (_, res) => {
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
-
-app.get("/login", (req, res) => {
-  res.render("auth/login", { error: req.flash("error")[0] });
-});
 
 app.get("/", (_, res) => {
   res.render("index", { title: "Timer" });
