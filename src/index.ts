@@ -8,7 +8,7 @@ const port = process.env.PORT;
 
 const app = express();
 
-app.set("views", path.join("views"));
+app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 
 app.get("/", (_, res) => {
