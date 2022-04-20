@@ -367,7 +367,7 @@ button.small {
 input {
   font-family: "Montserrat", sans-serif;
   color: var(--text-color);
-  background-color: transparent;
+  background-color: var(--action-disabled-bg);
   border: 1px solid var(--action-disabled);
   border-radius: 10px;
   padding: 10px;
@@ -391,6 +391,108 @@ input:disabled {
   cursor: not-allowed;
 }
 
+a {
+  color: var(--grey-500);
+}
+
+a:hover {
+  color: var(--grey-600);
+}
+
+a:active {
+  color: var(--grey-700);
+}
+
+a.primary {
+  color: var(--primary-main);
+}
+
+a.primary:hover {
+  color: var(--primary-dark);
+}
+
+a.primary:active {
+  color: var(--primary-darker);
+}
+
+a.info {
+  color: var(--info-main);
+}
+
+a.info:hover {
+  color: var(--info-dark);
+}
+
+a.info:active {
+  color: var(--info-darker);
+}
+
+a.success {
+  color: var(--success-main);
+}
+
+a.success:hover {
+  color: var(--success-dark);
+}
+
+a.success:active {
+  color: var(--success-darker);
+}
+
+a.warning {
+  color: var(--warning-main);
+}
+
+a.warning:hover {
+  color: var(--warning-dark);
+}
+
+a.warning:active {
+  color: var(--warning-darker);
+}
+
+a.error {
+  color: var(--error-main);
+}
+
+a.error:hover {
+  color: var(--error-dark);
+}
+
+a.error:active {
+  color: var(--error-darker);
+}
+
 .flex {
   display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.mt-1 {
+  margin-top: 10px;
+}
+
+.mt-2 {
+  margin-top: 20px;
+}
+
+.fullwidth {
+  width: 100%;
+}
+
+.alert {
+  padding: 15px;
+  border-radius: 8px;
+  width: 100%;
+}
+
+.alert.error {
+  background-color: var(--error-main);
 }

@@ -12,6 +12,9 @@ import { Strategy as LocalStrategy } from "passport-local";
 const PORT = process.env.PORT!!;
 const SESSION_SECRET = process.env.SESSION_SECRET!!;
 
+passport.serializeUser<any>((user, done) => done(null, user));
+passport.deserializeUser<any>((user, done) => done(null, user));
+
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -23,23 +26,25 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 passport.use(
-  new LocalStrategy((user, password, done) => {
-    if (user !== "test_user")
-      return done(null, false, {
-        message: "User not found",
-      });
-    else if (password !== "test_password")
-      return done(null, false, {
-        message: "Wrong password",
-      });
+  new LocalStrategy(
+    {
+      usernameField: "login",
+      passwordField: "password",
+    },
+    (user, password, done) => {
+      if (user !== "test_user")
+        return done(null, false, {
+          message: "User not found",
+        });
+      else if (password !== "test_password")
+        return done(null, false, {
+          message: "Wrong password",
+        });
 
-    return done(null, { id: 1, name: "Test", age: 21 });
-  })
+      return done(null, { id: 1, name: "Test", age: 21 });
+    }
+  )
 );
-
-app.get("/login", (_, res) => {
-  res.send("Login page. Please, authorize.");
-});
 
 app.post(
   "/login",
@@ -63,6 +68,10 @@ app.get("/home", (_, res) => {
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
+
+app.get("/login", (req, res) => {
+  res.render("auth/login", { error: req.flash("error")[0] });
+});
 
 app.get("/", (_, res) => {
   res.render("index", { title: "Timer" });

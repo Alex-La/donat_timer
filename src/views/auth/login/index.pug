@@ -1,0 +1,20 @@
+doctype HTML
+head 
+    title="Sign In"
+    style
+        include ../../index.css
+        include style.css
+body 
+    div(class="wrap")
+        div(class="flex flex-col items-center" style="min-width: 320px;")
+            form(action="/login" method="post" class="paper flex flex-col items-center fullwidth" style="padding: 16px 30px;")
+                h2="Sign In"
+                input(id="login" type="text" name="login" class="fullwidth" placeholder="Login")  
+                input(id="password" type="password" name="password" class="mt-2 fullwidth" placeholder="Password")   
+                button(type="submit" class="btn-primary mt-2 fullwidth")="Sign In" 
+            a(style="text-align: center" class="mt-2" href="#")="Forgot password?"
+            if error 
+                div(id="alert" class="alert error mt-2")=error
+    script: include index.js
+
+    
