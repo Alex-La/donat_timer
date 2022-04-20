@@ -9,6 +9,8 @@ import flash from "connect-flash";
 import passport from "passport";
 import localStrategy from "./passport/localStrategy";
 import authRouter from "./routes/auth";
+import isAuth from "./utils/middleware/isAuth";
+import privateRouter from "./routes/private";
 
 const PORT = process.env.PORT!!;
 const SESSION_SECRET = process.env.SESSION_SECRET!!;
@@ -28,29 +30,11 @@ app.use(passport.session());
 
 passport.use(localStrategy);
 
-app.use("/auth", authRouter(passport));
-
-function checkAuth() {
-  return app.use((req, res, next) => {
-    if (req.user) next();
-    else res.redirect("/login");
-  });
-}
-
-app.get("/home", (_, res) => {
-  res.send("Home page. You're authorized.");
-});
-
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 
-app.get("/", (_, res) => {
-  res.render("index", { title: "Timer" });
-});
-
-app.get("/settings", (_, res) => {
-  res.render("settings", { title: "Settings" });
-});
+app.use("/auth", authRouter(passport));
+app.use(isAuth, privateRouter());
 
 app.get("/theme", (_, res) => {
   res.render("theme", { title: "Theme" });
