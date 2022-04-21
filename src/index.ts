@@ -18,12 +18,12 @@ import { User } from "./models/entities/UserEntity";
 
 const PORT = process.env.PORT!!;
 const SESSION_SECRET = process.env.SESSION_SECRET!!;
-const PG_STRING = process.env.PG_STRING!!;
+const DATABASE_URL = process.env.DATABASE_URL!!;
 
 passport.serializeUser<User>((user, done) => done(null, user as User));
 passport.deserializeUser<User>((user, done) => done(null, user));
 
-const dataSource = new DataSource(ormOptions(PG_STRING));
+const dataSource = new DataSource(ormOptions(DATABASE_URL));
 
 dataSource
   .initialize()
