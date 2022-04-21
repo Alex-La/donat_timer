@@ -25,6 +25,7 @@ passport.deserializeUser<User>((user, done) => done(null, user));
 
 const dataSource = new DataSource(ormOptions(DATABASE_URL));
 
+console.info("Data source init start...");
 dataSource
   .initialize()
   .then((ds) => {
@@ -46,8 +47,8 @@ dataSource
 
     passport.use(localStrategy(store));
 
-    app.use(express.static(path.join(__dirname, "public")));
-    app.set("views", path.join(__dirname, "views"));
+    app.use(express.static(path.join("src", "public")));
+    app.set("views", path.join("src", "views"));
     app.set("view engine", "pug");
 
     app.use("/auth", authRouter(passport));

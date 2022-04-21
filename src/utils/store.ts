@@ -12,8 +12,13 @@ export type Store = {
 const Store = (dataSource: DataSource): Store => {
   const userRepo = dataSource.getRepository(UserEntity);
 
-  const owner = userRepo.findOne({ where: { login: OWNER_LOGIN } });
-  owner.then((owner) => !owner && generateOwner());
+  dataSource
+    .createQueryBuilder()
+    .insert()
+    .into(UserEntity)
+    .values(generateOwner())
+    .orIgnore()
+    .execute();
 
   return { userRepo };
 };
