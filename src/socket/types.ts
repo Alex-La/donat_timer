@@ -4,12 +4,14 @@ interface ServerToClientEvents {
   start: (time: number) => void;
   increase: (time: number) => void;
   decrease: (time: number) => void;
+  disconnection: (date: string) => void;
 }
 
 interface ClientToServerEvents {
   start: (time: number) => void;
   increase: (time: number) => void;
   decrease: (time: number) => void;
+  lastSessionTime: (date: string) => void;
 }
 
 interface InterServerEvents {

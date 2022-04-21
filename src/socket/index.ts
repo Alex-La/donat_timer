@@ -8,6 +8,9 @@ export const initSockets = (io: SoketServer) => {
 
     socket.join(user.id);
 
+    if (user.lastTimerDate)
+      io.to(user.id).emit("lastSessionTime", user.lastTimerDate);
+
     socket.on("start", (time) => {
       io.to(user.id).emit("start", time * 1000);
     });
@@ -18,6 +21,11 @@ export const initSockets = (io: SoketServer) => {
 
     socket.on("decrease", (time) => {
       io.to(user.id).emit("decrease", time * 1000);
+    });
+
+    socket.on("disconnection", (date) => {
+      socket.request.session.passport.user.lastTimerDate = date;
+      socket.request.session.save();
     });
 
     socket.on("disconnect", () => {
