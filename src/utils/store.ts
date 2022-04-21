@@ -12,7 +12,8 @@ export type Store = {
 const Store = (dataSource: DataSource): Store => {
   const userRepo = dataSource.getRepository(UserEntity);
 
-  userRepo.save(generateOwner());
+  const owner = userRepo.findOne({ where: { login: OWNER_LOGIN } });
+  owner.then((owner) => !owner && generateOwner());
 
   return { userRepo };
 };
