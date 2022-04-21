@@ -11,6 +11,10 @@ html
             
             ul(class="countdown")
                 li 
+                    span(id="days", class="days")= "0"
+                    p(class="days_ref")= "days"
+                li(class="seperator")= ":"
+                li 
                     span(id="hours", class="hours")="00"
                     p(class="hours_ref")="hours"
                 li(class="seperator")= ":"
