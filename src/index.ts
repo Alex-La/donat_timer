@@ -18,6 +18,7 @@ import UserEntity from "./models/entities/UserEntity";
 
 const PORT = process.env.PORT!!;
 const DATABASE_URL = process.env.DATABASE_URL!!;
+const IS_PROD = process.env.NODE_ENV === "production";
 
 passport.serializeUser<UserEntity>((user, done) =>
   done(null, user as UserEntity)
@@ -36,6 +37,7 @@ dataSource
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
     app.use(sessionMiddleware);
+    if (IS_PROD) app.set("trust proxy", 1);
     app.use(flash());
     app.use(passport.initialize());
     app.use(passport.session());
