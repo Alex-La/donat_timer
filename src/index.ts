@@ -4,7 +4,7 @@ import { createServer } from "http";
 import path from "path";
 import { Server as SocketServer } from "socket.io";
 import { initSockets } from "./socket";
-import { SoketServer as SocketServerType } from "./socket/types";
+import session from "express-session";
 import flash from "connect-flash";
 import passport from "passport";
 import localStrategy from "./utils/passport/localStrategy";
@@ -14,17 +14,14 @@ import privateRouter from "./routes/private";
 import { DataSource } from "typeorm";
 import ormOptions from "./utils/ormOptions";
 import Store from "./utils/store";
-import sessionMiddleware from "./utils/middleware/session";
-import { wrap, isAuth as isAuthIO } from "./utils/middleware/socket";
-import UserEntity from "./models/entities/UserEntity";
+import { User } from "./models/entities/UserEntity";
 
 const PORT = process.env.PORT!!;
+const SESSION_SECRET = process.env.SESSION_SECRET!!;
 const DATABASE_URL = process.env.DATABASE_URL!!;
 
-passport.serializeUser<UserEntity>((user, done) =>
-  done(null, user as UserEntity)
-);
-passport.deserializeUser<UserEntity>((user, done) => done(null, user));
+passport.serializeUser<User>((user, done) => done(null, user as User));
+passport.deserializeUser<User>((user, done) => done(null, user));
 
 const dataSource = new DataSource(ormOptions(DATABASE_URL));
 
@@ -37,7 +34,13 @@ dataSource
     const app = express();
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
-    app.use(sessionMiddleware);
+    app.use(
+      session({
+        secret: SESSION_SECRET,
+        resave: true,
+        saveUninitialized: false,
+      })
+    );
     app.use(flash());
     app.use(passport.initialize());
     app.use(passport.session());
@@ -58,11 +61,7 @@ dataSource
     app.get("*", (_, res) => res.render("404"));
 
     const server = createServer(app);
-    const io: SocketServerType = new SocketServer(server);
-
-    io.use(wrap(sessionMiddleware));
-    io.use(isAuthIO);
-
+    const io = new SocketServer(server);
     initSockets(io);
 
     server.listen(PORT, () => console.log(`Server ready at port: ${PORT}`));

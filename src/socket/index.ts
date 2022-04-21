@@ -1,31 +1,19 @@
-//@ts-nocheck
-import UserEntity from "../models/entities/UserEntity";
-import { SoketServer } from "./types";
+import { Server } from "socket.io";
 
-export const initSockets = (io: SoketServer) => {
+export const initSockets = (io: Server) => {
   io.on("connection", (socket) => {
-    const user = socket.request.session.passport.user as UserEntity;
-
-    socket.join(user.id);
-
-    if (user.lastTimerDate)
-      io.to(user.id).emit("lastSessionTime", user.lastTimerDate);
+    socket.join("room");
 
     socket.on("start", (time) => {
-      io.to(user.id).emit("start", time * 1000);
+      io.to("room").emit("start", time * 1000);
     });
 
     socket.on("increase", (time) => {
-      io.to(user.id).emit("increase", time * 1000);
+      io.to("room").emit("increase", time * 1000);
     });
 
     socket.on("decrease", (time) => {
-      io.to(user.id).emit("decrease", time * 1000);
-    });
-
-    socket.on("disconnection", (date) => {
-      socket.request.session.passport.user.lastTimerDate = date;
-      socket.request.session.save();
+      io.to("room").emit("decrease", time * 1000);
     });
 
     socket.on("disconnect", () => {

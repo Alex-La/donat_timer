@@ -6,13 +6,20 @@ export enum UserRoleEnum {
   OWNER = "OWNER",
 }
 
+export type User = {
+  id: string;
+  role: UserRoleEnum;
+  login: string;
+  password: string;
+};
+
 @Entity("users")
 class UserEntity extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
   @Column({ type: "varchar", default: "USER" })
-  role: UserRoleEnum;
+  role: string;
 
   @Column({ type: "varchar", unique: true })
   login: string;
