@@ -14,7 +14,7 @@ export type User = {
 };
 
 @Entity("users")
-export class UserEntity extends BaseEntity {
+class UserEntity extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 

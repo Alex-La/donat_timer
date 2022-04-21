@@ -1,0 +1,160 @@
+button {
+  font-size: 15px;
+  line-height: 26px;
+  font-family: "Montserrat", sans-serif;
+  background-color: var(--grey-300);
+  box-shadow: var(--shadow-z8);
+  border: none;
+  border-radius: 8px;
+  padding: 11px 22px;
+  cursor: pointer;
+  border: 1px solid var(--grey-300);
+}
+
+button.outline {
+  color: var(--text-color);
+  background-color: transparent;
+  box-shadow: none;
+}
+
+button:hover {
+  background-color: var(--grey-400);
+}
+
+button:active {
+  background-color: var(--grey-500);
+}
+
+button.btn-primary {
+  color: var(--text-color);
+  background-color: var(--primary-main);
+  box-shadow: var(--shadow-primary);
+  border: 1px solid var(--primary-main);
+}
+
+button.btn-primary.outline {
+  color: var(--primary-main);
+  background-color: transparent;
+  box-shadow: none;
+}
+
+button.btn-primary:hover {
+  background-color: var(--primary-dark);
+}
+
+button.btn-primary:active {
+  background-color: var(--primary-darker);
+}
+
+button.btn-info {
+  color: var(--text-color);
+  background-color: var(--info-main);
+  box-shadow: var(--shadow-info);
+  border: 1px solid var(--info-main);
+}
+
+button.btn-info.outline {
+  color: var(--info-main);
+  background-color: transparent;
+  box-shadow: none;
+}
+
+button.btn-info:hover {
+  background-color: var(--info-dark);
+}
+
+button.btn-info:active {
+  background-color: var(--info-darker);
+}
+
+button.btn-success {
+  color: var(--text-color-alt);
+  background-color: var(--success-main);
+  box-shadow: var(--shadow-success);
+  border: 1px solid var(--success-main);
+}
+
+button.btn-success.outline {
+  color: var(--success-main);
+  background-color: transparent;
+  box-shadow: none;
+}
+
+button.btn-success:hover {
+  background-color: var(--success-dark);
+}
+
+button.btn-success:active {
+  background-color: var(--success-darker);
+}
+
+button.btn-warning {
+  color: var(--text-color-alt);
+  background-color: var(--warning-main);
+  box-shadow: var(--shadow-warning);
+  border: 1px solid var(--warning-main);
+}
+
+button.btn-warning.outline {
+  color: var(--warning-main);
+  background-color: transparent;
+  box-shadow: none;
+}
+
+button.btn-warning:hover {
+  background-color: var(--warning-dark);
+}
+
+button.btn-warning:active {
+  background-color: var(--warning-darker);
+}
+
+button.btn-error {
+  color: var(--text-color);
+  background-color: var(--error-main);
+  box-shadow: var(--shadow-error);
+  border: 1px solid var(--error-main);
+}
+
+button.btn-error.outline {
+  color: var(--error-main);
+  background-color: transparent;
+  box-shadow: none;
+}
+
+button.btn-error:hover {
+  background-color: var(--error-dark);
+}
+
+button.btn-error:active {
+  background-color: var(--error-darker);
+}
+
+button:disabled {
+  background-color: var(--action-disabled-bg);
+  border-color: var(--action-disabled-bg);
+  box-shadow: var(--shadow-z8);
+  color: var(--action-disabled);
+  cursor: not-allowed;
+}
+
+button.outline:disabled {
+  background-color: transparent;
+  color: var(--action-disabled);
+}
+
+button.outline:disabled:hover {
+  background-color: transparent;
+}
+
+button.large {
+  padding: 11px 22px;
+}
+
+button.medium {
+  padding: 6px 16px;
+}
+
+button.small {
+  padding: 4px 10px;
+}

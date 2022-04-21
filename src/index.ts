@@ -9,7 +9,7 @@ import flash from "connect-flash";
 import passport from "passport";
 import localStrategy from "./utils/passport/localStrategy";
 import authRouter from "./routes/auth";
-import isAuth from "./utils/middleware/isAuth";
+import { isAuth } from "./utils/middleware/auth";
 import privateRouter from "./routes/private";
 import { DataSource } from "typeorm";
 import ormOptions from "./utils/ormOptions";
@@ -46,6 +46,7 @@ dataSource
 
     passport.use(localStrategy(store));
 
+    app.use(express.static(path.join(__dirname, "public")));
     app.set("views", path.join(__dirname, "views"));
     app.set("view engine", "pug");
 

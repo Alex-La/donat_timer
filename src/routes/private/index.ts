@@ -1,4 +1,6 @@
 import { Router } from "express";
+import { isOwner } from "../../utils/middleware/auth";
+import ownerRouter from "./owner";
 
 const privateRouter = (): Router => {
   const router = Router();
@@ -14,6 +16,8 @@ const privateRouter = (): Router => {
   router.get("/settings", (_, res) => {
     res.render("settings", { title: "Settings" });
   });
+
+  router.use("/owner", isOwner, ownerRouter());
 
   return router;
 };

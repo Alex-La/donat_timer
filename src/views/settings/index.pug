@@ -2,9 +2,9 @@ doctype html
 html 
     head
         title= title
-        style
-            include ../index.css 
-            include style.css
+        <link rel="icon" type="image/svg" href="/images/favicon.svg">
+        link(rel='stylesheet', href='/css/index.css')
+        style: include style.css
         script(src="/socket.io/socket.io.js") 
     script: include index.js
     body
