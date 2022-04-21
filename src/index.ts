@@ -4,7 +4,6 @@ import { createServer } from "http";
 import path from "path";
 import { Server as SocketServer } from "socket.io";
 import { initSockets } from "./socket";
-import session from "express-session";
 import flash from "connect-flash";
 import passport from "passport";
 import localStrategy from "./utils/passport/localStrategy";
@@ -15,9 +14,9 @@ import { DataSource } from "typeorm";
 import ormOptions from "./utils/ormOptions";
 import Store from "./utils/store";
 import { User } from "./models/entities/UserEntity";
+import sessionMiddleware from "./utils/middleware/session";
 
 const PORT = process.env.PORT!!;
-const SESSION_SECRET = process.env.SESSION_SECRET!!;
 const DATABASE_URL = process.env.DATABASE_URL!!;
 
 passport.serializeUser<User>((user, done) => done(null, user as User));
@@ -34,13 +33,7 @@ dataSource
     const app = express();
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
-    app.use(
-      session({
-        secret: SESSION_SECRET,
-        resave: true,
-        saveUninitialized: false,
-      })
-    );
+    app.use(sessionMiddleware);
     app.use(flash());
     app.use(passport.initialize());
     app.use(passport.session());
