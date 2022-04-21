@@ -3,6 +3,11 @@ document.addEventListener("DOMContentLoaded", () => {
   let timer,
     date = new Date();
 
+  socket.on("lastTimerDateTime", (lastDate) => {
+    date = new Date(lastDate);
+    startTimer(date);
+  });
+
   socket.on("start", (time) => {
     date = new Date(new Date().getTime() + parseInt(time, 10));
     startTimer(date);
@@ -17,6 +22,10 @@ document.addEventListener("DOMContentLoaded", () => {
     date = new Date(date.getTime() - parseInt(time, 10));
     startTimer(date);
   });
+
+  window.onbeforeunload = () => {
+    socket.emit("disconnection", date);
+  };
 
   function startTimer(date) {
     clearInterval(timer);

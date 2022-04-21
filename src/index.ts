@@ -15,6 +15,7 @@ import ormOptions from "./utils/ormOptions";
 import Store from "./utils/store";
 import sessionMiddleware from "./utils/middleware/session";
 import UserEntity from "./models/entities/UserEntity";
+import { isAuthIO, wrap } from "./utils/middleware/socket";
 
 const PORT = process.env.PORT!!;
 const DATABASE_URL = process.env.DATABASE_URL!!;
@@ -59,6 +60,10 @@ dataSource
 
     const server = createServer(app);
     const io = new SocketServer(server);
+
+    io.use(wrap(sessionMiddleware));
+    io.use(isAuthIO);
+
     initSockets(io);
 
     server.listen(PORT, () => console.log(`Server ready at port: ${PORT}`));
