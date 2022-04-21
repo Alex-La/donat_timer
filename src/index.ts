@@ -13,14 +13,16 @@ import privateRouter from "./routes/private";
 import { DataSource } from "typeorm";
 import ormOptions from "./utils/ormOptions";
 import Store from "./utils/store";
-import { User } from "./models/entities/UserEntity";
 import sessionMiddleware from "./utils/middleware/session";
+import UserEntity from "./models/entities/UserEntity";
 
 const PORT = process.env.PORT!!;
 const DATABASE_URL = process.env.DATABASE_URL!!;
 
-passport.serializeUser<User>((user, done) => done(null, user as User));
-passport.deserializeUser<User>((user, done) => done(null, user));
+passport.serializeUser<UserEntity>((user, done) =>
+  done(null, user as UserEntity)
+);
+passport.deserializeUser<UserEntity>((user, done) => done(null, user));
 
 const dataSource = new DataSource(ormOptions(DATABASE_URL));
 
