@@ -16,7 +16,7 @@ import ormOptions from "./utils/ormOptions";
 import Store from "./utils/store";
 import { User } from "./models/entities/UserEntity";
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT!!;
 const SESSION_SECRET = process.env.SESSION_SECRET!!;
 const DATABASE_URL = process.env.DATABASE_URL!!;
 
