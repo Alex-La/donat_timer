@@ -1,10 +1,9 @@
 doctype HTML
 head 
     title="Sign In"
-    <link rel="icon" type="image/svg" href="/images/favicon.svg">
-    link(rel='stylesheet', href='/css/index.css')
-    style: include style.css
-body 
+    link(rel="icon" type="image/svg" href="/images/favicon.svg")
+    link(href="/styles/style.css", rel="stylesheet")
+body(class="prose lg:prose-xl") 
     div(class="wrap")
         div(class="flex flex-col items-center" style="min-width: 320px;")
             form(action="/auth/login" method="post" class="paper flex flex-col items-center fullwidth" style="padding: 16px 30px;")
