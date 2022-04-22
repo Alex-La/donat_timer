@@ -3,17 +3,13 @@ head
     title="Sign In"
     link(rel="icon" type="image/svg" href="/images/favicon.svg")
     link(href="/styles/style.css", rel="stylesheet")
-body(class="prose lg:prose-xl") 
-    div(class="wrap")
-        div(class="flex flex-col items-center" style="min-width: 320px;")
-            form(action="/auth/login" method="post" class="paper flex flex-col items-center fullwidth" style="padding: 16px 30px;")
-                h2="Sign In"
-                input(id="login" type="text" name="login" class="fullwidth" placeholder="Login")  
-                input(id="password" type="password" name="password" class="mt-2 fullwidth" placeholder="Password")   
-                button(type="submit" class="btn-primary mt-2 fullwidth")="Sign In" 
-            a(style="text-align: center" class="mt-2" href="#")="Forgot password?"
-            if error 
-                div(id="alert" class="alert error mt-2")=error
+body(class="prose")
+    div(class="fixed top-0 left-0 right-0 bottom-0 flex flex-col items-center justify-center")
+        form(action="/auth/login" method="post" class="flex flex-col items-center")
+            h2="Sign In"
+            input(id="login" type="text" name="login" class="fullwidth" placeholder="Login")  
+            input(id="password" type="password" name="password" class="mt-2 fullwidth" placeholder="Password")   
+            button(type="submit" class="btn-primary mt-2 fullwidth")="Sign In" 
+        if error 
+            div(id="alert" class="alert error mt-2")=error
     script: include index.js
-
-    

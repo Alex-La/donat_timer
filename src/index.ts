@@ -52,10 +52,6 @@ dataSource
     app.use("/auth", authRouter(passport));
     app.use(isAuth, privateRouter());
 
-    app.get("/theme", (_, res) => {
-      res.render("theme", { title: "Theme" });
-    });
-
     app.get("*", (_, res) => res.render("404"));
 
     const server = createServer(app);
